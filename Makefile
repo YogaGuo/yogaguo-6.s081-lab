@@ -194,7 +194,7 @@ UPROGS=\
 	$U/_wc\
 	$U/_zombie\
     $U/_pingpong\
-
+     $U/_primer\
 
 
 ifeq ($(LAB),$(filter $(LAB), pgtbl lock))
