@@ -194,9 +194,10 @@ UPROGS=\
 	$U/_wc\
 	$U/_zombie\
     $U/_pingpong\
-     $U/_primer\
-
-
+    $U/_primer\
+    $U/_xargs\
+    $U/_find\
+	
 ifeq ($(LAB),$(filter $(LAB), pgtbl lock))
 UPROGS += \
 	$U/_stats
