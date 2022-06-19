@@ -1,3 +1,11 @@
+/*
+ * @Description:
+ * @Version: 2.0
+ * @Autor: Yogaguo
+ * @Date: 2022-06-19 13:30:54
+ * @LastEditors: Yogaguo
+ * @LastEditTime: 2022-06-19 13:42:00
+ */
 // System call numbers
 #define SYS_fork 1
 #define SYS_exit 2
@@ -20,4 +28,4 @@
 #define SYS_link 19
 #define SYS_mkdir 20
 #define SYS_close 21
-#define SYS_TRACE 22
+#define SYS_trace 22
