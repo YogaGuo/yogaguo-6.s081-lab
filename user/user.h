@@ -4,10 +4,11 @@
  * @Autor: Yogaguo
  * @Date: 2022-06-18 14:45:37
  * @LastEditors: Yogaguo
- * @LastEditTime: 2022-06-19 11:58:03
+ * @LastEditTime: 2022-06-20 11:24:49
  */
 struct stat;
 struct rtcdate;
+struct sysinfo;
 
 // system calls
 int fork(void);
@@ -32,6 +33,8 @@ char *sbrk(int);
 int sleep(int);
 int uptime(void);
 int trace(int);
+int sysinfo(struct sysinfo *);
+
 // ulib.c
 int stat(const char *, struct stat *);
 char *strcpy(char *, const char *);

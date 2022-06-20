@@ -4,7 +4,7 @@
  * @Autor: Yogaguo
  * @Date: 2022-06-19 13:30:54
  * @LastEditors: Yogaguo
- * @LastEditTime: 2022-06-19 13:42:00
+ * @LastEditTime: 2022-06-20 10:33:36
  */
 // System call numbers
 #define SYS_fork 1
@@ -29,3 +29,4 @@
 #define SYS_mkdir 20
 #define SYS_close 21
 #define SYS_trace 22
+#define SYS_sysinfo 23
