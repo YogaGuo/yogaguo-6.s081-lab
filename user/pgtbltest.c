@@ -1,3 +1,11 @@
+/*
+ * @Description:
+ * @Version: 2.0
+ * @Autor: Yogaguo
+ * @Date: 2022-06-24 17:44:30
+ * @LastEditors: Yogaguo
+ * @LastEditTime: 2022-07-01 19:23:11
+ */
 #include "kernel/param.h"
 #include "kernel/fcntl.h"
 #include "kernel/types.h"
@@ -7,8 +15,7 @@
 void ugetpid_test();
 void pgaccess_test();
 
-int
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
   ugetpid_test();
   pgaccess_test();
@@ -18,24 +25,24 @@ main(int argc, char *argv[])
 
 char *testname = "???";
 
-void
-err(char *why)
+void err(char *why)
 {
   printf("pgtbltest: %s failed: %s, pid=%d\n", testname, why, getpid());
   exit(1);
 }
 
-void
-ugetpid_test()
+void ugetpid_test()
 {
   int i;
 
   printf("ugetpid_test starting\n");
   testname = "ugetpid_test";
 
-  for (i = 0; i < 64; i++) {
+  for (i = 0; i < 64; i++)
+  {
     int ret = fork();
-    if (ret != 0) {
+    if (ret != 0)
+    {
       wait(&ret);
       if (ret != 0)
         exit(1);
@@ -48,8 +55,7 @@ ugetpid_test()
   printf("ugetpid_test: OK\n");
 }
 
-void
-pgaccess_test()
+void pgaccess_test()
 {
   char *buf;
   unsigned int abits;
@@ -65,6 +71,7 @@ pgaccess_test()
     err("pgaccess failed");
   if (abits != ((1 << 1) | (1 << 2) | (1 << 30)))
     err("incorrect access bits set");
+  printf("%x\n", abits);
   free(buf);
   printf("pgaccess_test: OK\n");
 }

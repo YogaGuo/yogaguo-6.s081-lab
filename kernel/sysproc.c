@@ -11,10 +11,10 @@ uint64
 sys_exit(void)
 {
   int n;
-  if(argint(0, &n) < 0)
+  if (argint(0, &n) < 0)
     return -1;
   exit(n);
-  return 0;  // not reached
+  return 0; // not reached
 }
 
 uint64
@@ -33,7 +33,7 @@ uint64
 sys_wait(void)
 {
   uint64 p;
-  if(argaddr(0, &p) < 0)
+  if (argaddr(0, &p) < 0)
     return -1;
   return wait(p);
 }
@@ -44,11 +44,11 @@ sys_sbrk(void)
   int addr;
   int n;
 
-  if(argint(0, &n) < 0)
+  if (argint(0, &n) < 0)
     return -1;
-  
+
   addr = myproc()->sz;
-  if(growproc(n) < 0)
+  if (growproc(n) < 0)
     return -1;
   return addr;
 }
@@ -59,13 +59,14 @@ sys_sleep(void)
   int n;
   uint ticks0;
 
-
-  if(argint(0, &n) < 0)
+  if (argint(0, &n) < 0)
     return -1;
   acquire(&tickslock);
   ticks0 = ticks;
-  while(ticks - ticks0 < n){
-    if(myproc()->killed){
+  while (ticks - ticks0 < n)
+  {
+    if (myproc()->killed)
+    {
       release(&tickslock);
       return -1;
     }
@@ -75,12 +76,48 @@ sys_sleep(void)
   return 0;
 }
 
-
 #ifdef LAB_PGTBL
-int
-sys_pgaccess(void)
+int sys_pgaccess(void)
 {
   // lab pgtbl: your code here.
+
+  uint64 va;
+  if (argaddr(0, &va) < 0)
+    return -1;
+
+  int lens;
+  if (argint(1, &lens) < 0)
+    return -1;
+
+  int bitmask;
+  if (argint(2, &bitmask) < 0)
+    return -1;
+
+  if (lens > 32 || lens < 0)
+    return -1;
+
+  uint32 res = 0;
+  pte_t *pte;
+  struct proc *p = myproc();
+  for (int i = 0; i < lens; i++)
+  {
+    if (va >= MAXVA)
+      return -1;
+    pte = walk(p->pagetable, va, 0);
+    if (pte == 0)
+      return -1;
+    /* if pte has been accessed add bit of ret and clear*/
+    if (*pte & PTE_A)
+    {
+      res |= (1 << i);
+      *pte = *pte & (~PTE_A); // clear 6th flag(PTE_A)
+    }
+    va += PGSIZE;
+  }
+
+  if (copyout(p->pagetable, bitmask, (char *)&res, sizeof(res)) < 0)
+    return -1;
+
   return 0;
 }
 #endif
@@ -90,7 +127,7 @@ sys_kill(void)
 {
   int pid;
 
-  if(argint(0, &pid) < 0)
+  if (argint(0, &pid) < 0)
     return -1;
   return kill(pid);
 }
